@@ -1,0 +1,82 @@
+/* body{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+#grid-container {
+    display: grid;
+    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+    height: 400px;
+    width: 400px;
+    background-color: green;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+    width: 538px;
+    margin: auto;
+  }
+  
+  
+  .grid-item {
+    height: 25px;
+    width: 25px;
+    border: 1px solid #000;
+    background-color: gray;
+  } */
+
+/* Style the tab */
+body {
+    margin: 10;
+    /* background-color: #222; */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 500;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    float: left;
+}
+
+header {
+    background-color: aqua;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.logo {
+    float: left;
+
+    height: 70px;
+}
+
+nav {
+    float: right;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+nav li {
+    display: inline-block;
+    margin-left: 70px;
+    padding: 25px;
+}
+nav a {
+    color: blue;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+nav a:hover {
+    color: #000;
+}
+
+.active {
+    background-color: aquamarine;
+}
