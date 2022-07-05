@@ -1,4 +1,4 @@
-/* body{
+body{
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
 }
@@ -22,12 +22,13 @@
     width: 25px;
     border: 1px solid #000;
     background-color: gray;
-  } */
+  }
 
 /* Style the tab */
 body {
     margin: 10;
-    /* background-color: #222; */
+    background-color: #222;
+    color: #fff;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 500;
 }
@@ -79,4 +80,12 @@ nav a:hover {
 
 .active {
     background-color: aquamarine;
+}
+
+.food {
+    background-color: red;
+}
+
+.snake {
+    background-color: yellow;
 }
