@@ -19,6 +19,7 @@ let snakeY = 0;
 
 let snakeBox;
 let direction;
+let foodBox;
 
 const container = document.getElementById('grid-container');
 
@@ -43,6 +44,7 @@ function makeGrid(rows, cols) {
 }
 
 function placeFood() {
+    console.log('Place food');
     foodX = Math.floor(Math.random() * rows);
     foodY = Math.floor(Math.random() * columns);
 
@@ -55,7 +57,7 @@ function placeFood() {
 
     let foodClassName = foodX + '-' + foodY;
 
-    let foodBox = document.getElementsByClassName(foodClassName)[0];
+    foodBox = document.getElementsByClassName(foodClassName)[0];
     foodBox.classList.add('food');
 }
 
@@ -63,13 +65,13 @@ function placeSnake() {
     snakeX = Math.floor(Math.random() * rows);
     snakeY = Math.floor(Math.random() * columns);
 
-    snakeBody.push[[snakeX, snakeY]];
-
     let snakeClassName = snakeX + '-' + snakeY;
+
     snakeBox = document.getElementsByClassName(snakeClassName)[0];
     snakeBox.classList.add('snake');
 
-    snakeBody.push(snakeClassName);
+    // Put the body to the beginning of array
+    snakeBody.push([snakeX, snakeY]);
 }
 
 makeGrid(rows, columns);
@@ -92,36 +94,56 @@ function moveSnake(event) {
         }
     }
 
-    if (direction === 'right') {
-        snakeX++;
-    } else if (direction === 'left') {
-        snakeX--;
-    } else if (direction === 'up') {
-        snakeY--;
-    } else if (direction === 'down') {
-        snakeY++;
-    }
+    let snakeHead = snakeBody[snakeBody.length - 1];
 
-    snakeBox.classList.remove('snake');
-
-    let newSnakeClassName = snakeX + '-' + snakeY;
-
-    snakeBox = document.getElementsByClassName(newSnakeClassName)[0];
-    snakeBox.classList.add('snake');
-
-    // if snake eat food
-    if (snakeX == foodX && snakeY == foodY) {
-        placeFood();
+    // if snake is going to eat food in the next move
+    if (
+        (direction === 'up' && snakeHead[0] === foodX && snakeHead[1] === foodY + 1) ||
+        (direction === 'down' && snakeHead[0] === foodX && snakeHead[1] === foodY - 1) ||
+        (direction === 'right' && snakeHead[0] === foodX - 1 && snakeHead[1] === foodY) ||
+        (direction === 'left' && snakeHead[0] === foodX + 1 && snakeHead[1] === foodY)
+    ) {
         snakeBody.push([foodX, foodY]);
-    }
-}
 
-function eatFood() {
-    for (let i = snakeBody.length - 1; i > 0; i--) {
-        snakeBody[i] = snakeBody[i - 1];
-    }
+        // Snake head is now changed
+        snakeHead = snakeBody[snakeBody.length - 1];
 
-    if (snakeBody.length) {
-        snakeBody[0] = [snakeX, snakeY];
+        // Add snake class to the food box because snake has eaten the food and increased its length
+        foodBox.classList.add('snake');
+
+        // Remove the eaten food and place next food
+        placeFood();
+    } else {
+        // Else, snake is not eating food, just move the snake
+
+        if (direction === 'right') {
+            snakeBody.push([snakeHead[0] + 1, snakeHead[1]]);
+        } else if (direction === 'left') {
+            snakeBody.push([snakeHead[0] - 1, snakeHead[1]]);
+        } else if (direction === 'up') {
+            snakeBody.push([snakeHead[0], snakeHead[1] - 1]);
+        } else if (direction === 'down') {
+            snakeBody.push([snakeHead[0], snakeHead[1] + 1]);
+        }
+
+        // Snake head is changed again
+        snakeHead = snakeBody[snakeBody.length - 1];
+
+        console.log('Snake body after move is ', JSON.parse(JSON.stringify(snakeBody)));
+
+        // Add class snake to the newly pushed snake co-ordinate
+        if (direction) {
+            let addedBodyBox = document.getElementsByClassName(snakeHead[0] + '-' + snakeHead[1])[0];
+            addedBodyBox.classList.add('snake');
+
+            // Remove the co-ordinate of tail of snake from snakeBody
+            let removedBody = snakeBody.shift();
+
+            // Remove class snake from the removed tail
+            let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
+            removedBodyBox.classList.remove('snake');
+
+            console.log('Snake body at last is ', JSON.parse(JSON.stringify(snakeBody)));
+        }
     }
 }
