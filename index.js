@@ -13,10 +13,6 @@ let y = 0;
 let foodX;
 let foodY;
 
-// Position of snake
-let snakeX = 0;
-let snakeY = 0;
-
 let snakeBox;
 let direction;
 let foodBox;
@@ -62,8 +58,8 @@ function placeFood() {
 }
 
 function placeSnake() {
-    snakeX = Math.floor(Math.random() * rows);
-    snakeY = Math.floor(Math.random() * columns);
+    let snakeX = Math.floor(Math.random() * rows);
+    let snakeY = Math.floor(Math.random() * columns);
 
     let snakeClassName = snakeX + '-' + snakeY;
 
@@ -79,7 +75,7 @@ placeFood();
 placeSnake();
 
 document.addEventListener('keyup', moveSnake);
-setInterval(moveSnake, 300);
+let myInterval = setInterval(moveSnake, 300);
 
 function moveSnake(event) {
     if (event) {
@@ -134,14 +130,22 @@ function moveSnake(event) {
         // Add class snake to the newly pushed snake co-ordinate
         if (direction) {
             let addedBodyBox = document.getElementsByClassName(snakeHead[0] + '-' + snakeHead[1])[0];
-            addedBodyBox.classList.add('snake');
 
-            // Remove the co-ordinate of tail of snake from snakeBody
-            let removedBody = snakeBody.shift();
+            if (addedBodyBox) {
+                addedBodyBox.classList.add('snake');
 
-            // Remove class snake from the removed tail
-            let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
-            removedBodyBox.classList.remove('snake');
+                // Remove the co-ordinate of tail of snake from snakeBody
+                let removedBody = snakeBody.shift();
+    
+                // Remove class snake from the removed tail
+                let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
+                removedBodyBox.classList.remove('snake');
+            } else {
+                // Alert Game over and stop executing the moveSnake function
+                alert('Game over');
+                clearInterval(myInterval);
+            }
+            
 
             console.log('Snake body at last is ', JSON.parse(JSON.stringify(snakeBody)));
         }
