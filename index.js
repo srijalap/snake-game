@@ -195,9 +195,21 @@ function moveSnake(event) {
                 alert('Game over');
                 clearInterval(myInterval);
             }
-            
-            console.log('Snake body at last is ', JSON.parse(JSON.stringify(snakeBody)));
-            console.log('Snake head at last is ', JSON.parse(JSON.stringify(snakeHead)));
+
         }
     }
+
+        // Game over if snake head collides with snake body
+        console.log('Snake body is ', JSON.parse(JSON.stringify(snakeBody)));
+        console.log('Snake head at last is ', JSON.parse(JSON.stringify(snakeHead)));
+
+        const snakeBodyWithoutHead = snakeBody.slice(0, -1);
+        console.log('snakeBodyWithoutHead is ', JSON.parse(JSON.stringify(snakeBodyWithoutHead)));
+        // includes does not check if array exists in array of array
+        // so stringified to check if a string exists in array of string
+        if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
+            alert('Game over');
+            clearInterval(myInterval);
+        }
+    
 }
