@@ -15,6 +15,8 @@ let foodBoxes = [];
 let snakeBox;
 let direction = 'right';
 
+let score = 0;
+
 const container = document.getElementById('grid-container');
 
 function makeGrid(rows, cols) {
@@ -119,9 +121,14 @@ function moveSnake(event) {
     // foodBoxes[2][1] -> y co-ordinate of third food
 
     // if snake is going to eat food in the next move
-    let eatenFoodBoxIndex;
+    let eatenFoodBoxIndex; //is undefined here.
     // console.log('snakeBody is ', JSON.parse(JSON.stringify(snakeBody)));
     // console.log('snakeHead is ', JSON.parse(JSON.stringify(snakeHead)));
+    // when snake is moving up direction snake head (y co-ordinate) is (+1) just before head meet the food.
+    // when snake is moving down direction snake head (y co-ordinate) is (-1) just before head meet the food.
+    // when snake is moving right direction snake head (x co-ordinate) is (-1) just before head meet the food.
+    // when snake is moving left direction snake head (x co-ordinate) is (+1) just before head meet the food.
+
     if (direction === 'up' && snakeHead[0] === foodBoxes[0][0] && snakeHead[1] === foodBoxes[0][1] + 1) {
         eatenFoodBoxIndex = 0;
     } else if (direction === 'up' && snakeHead[0] === foodBoxes[1][0] && snakeHead[1] === foodBoxes[1][1] + 1) {
@@ -149,6 +156,8 @@ function moveSnake(event) {
     }
 
     if (eatenFoodBoxIndex >= 0) {
+        score = score + 10;
+        console.log('score is', score);
         const eatenFoodBox = foodBoxes[eatenFoodBoxIndex];
         snakeBody.push([eatenFoodBox[0], eatenFoodBox[1]]);
 
@@ -192,24 +201,25 @@ function moveSnake(event) {
                 removedBodyBox.classList.remove('snake');
             } else {
                 // Alert Game over and stop executing the moveSnake function
-                alert('Game over');
-                clearInterval(myInterval);
+                gameOver();
             }
-
         }
     }
 
-        // Game over if snake head collides with snake body
-        console.log('Snake body is ', JSON.parse(JSON.stringify(snakeBody)));
-        console.log('Snake head at last is ', JSON.parse(JSON.stringify(snakeHead)));
+    // Game over if snake head collides with snake body
+    console.log('Snake body is ', JSON.parse(JSON.stringify(snakeBody)));
+    console.log('Snake head at last is ', JSON.parse(JSON.stringify(snakeHead)));
 
-        const snakeBodyWithoutHead = snakeBody.slice(0, -1);
-        console.log('snakeBodyWithoutHead is ', JSON.parse(JSON.stringify(snakeBodyWithoutHead)));
-        // includes does not check if array exists in array of array
-        // so stringified to check if a string exists in array of string
-        if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
-            alert('Game over');
-            clearInterval(myInterval);
-        }
-    
+    const snakeBodyWithoutHead = snakeBody.slice(0, -1);
+    console.log('snakeBodyWithoutHead is ', JSON.parse(JSON.stringify(snakeBodyWithoutHead)));
+    // includes does not check if array exists in array of array
+    // so stringified to check if a string exists in array of string
+    if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
+        gameOver();
+    }
+}
+
+function gameOver() {
+    alert(`Game over. Your score is  ${score}.`);
+    clearInterval(myInterval);
 }
