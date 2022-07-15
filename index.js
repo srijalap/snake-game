@@ -16,6 +16,7 @@ let snakeBox;
 let direction = 'right';
 
 let score = 0;
+let snakeLength = 5;
 
 const container = document.getElementById('grid-container');
 
@@ -157,6 +158,7 @@ function moveSnake(event) {
 
     if (eatenFoodBoxIndex >= 0) {
         score = score + 10;
+        snakeLength = snakeLength + 5;
         console.log('score is', score);
         const eatenFoodBox = foodBoxes[eatenFoodBoxIndex];
         snakeBody.push([eatenFoodBox[0], eatenFoodBox[1]]);
@@ -194,11 +196,13 @@ function moveSnake(event) {
                 addedBodyBox.classList.add('snake');
 
                 // Remove the co-ordinate of tail of snake from snakeBody
-                let removedBody = snakeBody.shift();
-
                 // Remove class snake from the removed tail
-                let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
-                removedBodyBox.classList.remove('snake');
+
+                if (snakeBody.length > snakeLength) {
+                    let removedBody = snakeBody.shift();
+                    let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
+                    removedBodyBox.classList.remove('snake');
+                }
             } else {
                 // Alert Game over and stop executing the moveSnake function
                 gameOver();
