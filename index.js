@@ -94,22 +94,10 @@ makeGrid(rows, columns);
 placeFood();
 placeSnake();
 
-document.addEventListener('keyup', moveSnake);
+document.addEventListener('keyup', changeDirection);
 let myInterval = setInterval(moveSnake, 300);
 
-function moveSnake(event) {
-    if (event) {
-        if (event.code === 'ArrowRight') {
-            direction = 'right';
-        } else if (event.code === 'ArrowLeft') {
-            direction = 'left';
-        } else if (event.code === 'ArrowUp') {
-            direction = 'up';
-        } else if (event.code === 'ArrowDown') {
-            direction = 'down';
-        }
-    }
-
+function moveSnake() {
     let snakeHead = snakeBody[snakeBody.length - 1];
 
     // snakeHead[0] -> x co-ordinate of snake head
@@ -220,6 +208,18 @@ function moveSnake(event) {
     // so stringified to check if a string exists in array of string
     if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
         gameOver();
+    }
+}
+
+function changeDirection(event) {
+    if (event.code === 'ArrowRight' && (direction === 'up' || direction === 'down')) {
+        direction = 'right';
+    } else if (event.code === 'ArrowLeft' && (direction === 'up' || direction === 'down')) {
+        direction = 'left';
+    } else if (event.code === 'ArrowUp' && (direction === 'right' || direction === 'left')) {
+        direction = 'up';
+    } else if (event.code === 'ArrowDown' && (direction === 'right' || direction === 'left')) {
+        direction = 'down';
     }
 }
 
