@@ -19,6 +19,8 @@ let score = 0;
 let snakeLength = 5;
 
 const container = document.getElementById('grid-container');
+const modal = document.getElementById('modal-page');
+console.log('modal is', modal);
 
 function makeGrid(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
@@ -111,8 +113,6 @@ function moveSnake() {
 
     // if snake is going to eat food in the next move
     let eatenFoodBoxIndex; //is undefined here.
-    // console.log('snakeBody is ', JSON.parse(JSON.stringify(snakeBody)));
-    // console.log('snakeHead is ', JSON.parse(JSON.stringify(snakeHead)));
     // when snake is moving up direction snake head (y co-ordinate) is (+1) just before head meet the food.
     // when snake is moving down direction snake head (y co-ordinate) is (-1) just before head meet the food.
     // when snake is moving right direction snake head (x co-ordinate) is (-1) just before head meet the food.
@@ -174,8 +174,6 @@ function moveSnake() {
         // Snake head is changed again
         snakeHead = snakeBody[snakeBody.length - 1];
 
-        // console.log('Snake body after move is ', JSON.parse(JSON.stringify(snakeBody)));
-
         // Add class snake to the newly pushed snake co-ordinate
         if (direction) {
             let addedBodyBox = document.getElementsByClassName(snakeHead[0] + '-' + snakeHead[1])[0];
@@ -199,11 +197,7 @@ function moveSnake() {
     }
 
     // Game over if snake head collides with snake body
-    console.log('Snake body is ', JSON.parse(JSON.stringify(snakeBody)));
-    console.log('Snake head at last is ', JSON.parse(JSON.stringify(snakeHead)));
-
     const snakeBodyWithoutHead = snakeBody.slice(0, -1);
-    console.log('snakeBodyWithoutHead is ', JSON.parse(JSON.stringify(snakeBodyWithoutHead)));
     // includes does not check if array exists in array of array
     // so stringified to check if a string exists in array of string
     if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
@@ -224,6 +218,10 @@ function changeDirection(event) {
 }
 
 function gameOver() {
-    alert(`Game over. Your score is  ${score}.`);
+    modal.style.display = 'block';
+    const scoreElement = document.getElementById("score");
+    console.log("score element is",scoreElement);
+    scoreElement.innerHTML = `${score}.` ;
+
     clearInterval(myInterval);
 }

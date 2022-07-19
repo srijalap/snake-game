@@ -1,4 +1,4 @@
-body{
+body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
 }
@@ -14,15 +14,14 @@ body{
     grid-template-columns: repeat(var(--grid-cols), 1fr);
     width: 538px;
     margin: auto;
-  }
-  
-  
-  .grid-item {
+}
+
+.grid-item {
     height: 25px;
     width: 25px;
     border: 1px solid #000;
     background-color: gray;
-  }
+}
 
 /* Style the tab */
 body {
@@ -92,20 +91,28 @@ nav a:hover {
 .paragraph {
     width: 50%;
     margin: auto;
-    font-size:large;
+    font-size: large;
     text-align: start;
-    
 }
 .paragraphTwo {
-    
     text-align: center;
     margin-top: 60px;
     margin-bottom: 20px;
     font-size: larger;
 }
-.author{
+.author {
     text-align: right;
     margin-top: 100px;
     margin-bottom: 10px;
-    
+}
+
+#modal-page {
+    color: black;
+    background-color: #fefefe;
+    margin-left: 33%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    display: none; 
+    position: fixed;
 }
