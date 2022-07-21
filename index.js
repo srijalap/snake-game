@@ -219,9 +219,20 @@ function changeDirection(event) {
 
 function gameOver() {
     modal.style.display = 'block';
-    const scoreElement = document.getElementById("score");
-    console.log("score element is",scoreElement);
-    scoreElement.innerHTML = `${score}.` ;
+    const scoreElement = document.getElementById('score');
+    scoreElement.innerHTML = `${score}.`;
 
     clearInterval(myInterval);
+}
+
+const okBtn = document.getElementById('okBtn');
+okBtn.addEventListener('click', hideModal);
+function hideModal() {
+    modal.style.display = 'none';
+}
+
+const playAgainBtn = document.getElementById("playAgainBtn");
+playAgainBtn.addEventListener("click", reloadPage);
+function reloadPage() {
+    window.location.reload();
 }
