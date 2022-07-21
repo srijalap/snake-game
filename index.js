@@ -12,6 +12,15 @@ let y = 0;
 // Position of food
 let foodBoxes = [];
 
+// obstacle wall
+const obstacleWall = [
+    [10, 10],
+    [11, 10],
+    [12, 10],
+    [13, 10],
+    [14, 10],
+];
+
 let snakeBox;
 let direction = 'right';
 
@@ -42,6 +51,13 @@ function makeGrid(rows, cols) {
     }
 }
 
+function placeWall() {
+    obstacleWall.forEach((oneWallCoordinate) => {
+        const wallElem = document.getElementsByClassName(oneWallCoordinate[0] + '-' + oneWallCoordinate[1])[0];
+        wallElem.classList.add('wall');
+    });
+}
+
 function placeFood(foodBoxIndexToRemove) {
     let numberOfFoodToGenerate = 3;
     if (foodBoxIndexToRemove >= 0) {
@@ -70,7 +86,7 @@ function generateFoodBox(count) {
 
         // If foodBox with above generated coordinates already exist or are in the snakeBody,
         // generate again
-        if (foodBoxes.indexOf([foodX, foodY]) === -1 || snakeBody.includes([foodX, foodY])) {
+        if (foodBoxes.indexOf([foodX, foodY]) === -1 || snakeBody.includes([foodX, foodY]) || obstacleWall.includes([foodX, foodY])) {
             let foodClassName = foodX + '-' + foodY;
 
             let foodBox = document.getElementsByClassName(foodClassName)[0];
@@ -95,6 +111,7 @@ function placeSnake() {
 makeGrid(rows, columns);
 placeFood();
 placeSnake();
+placeWall();
 
 document.addEventListener('keyup', changeDirection);
 let myInterval = setInterval(moveSnake, 300);
@@ -203,6 +220,11 @@ function moveSnake() {
     if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
         gameOver();
     }
+
+    // Game over if snake head collides with the obstacle wall
+    if (JSON.stringify(obstacleWall).includes(JSON.stringify(snakeHead))) {
+        gameOver();
+    }
 }
 
 function changeDirection(event) {
@@ -231,8 +253,8 @@ function hideModal() {
     modal.style.display = 'none';
 }
 
-const playAgainBtn = document.getElementById("playAgainBtn");
-playAgainBtn.addEventListener("click", reloadPage);
+const playAgainBtn = document.getElementById('playAgainBtn');
+playAgainBtn.addEventListener('click', reloadPage);
 function reloadPage() {
     window.location.reload();
 }
