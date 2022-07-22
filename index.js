@@ -31,6 +31,9 @@ const container = document.getElementById('grid-container');
 const modal = document.getElementById('modal-page');
 console.log('modal is', modal);
 
+var startTime = Date.now();
+console.log('startTime', startTime);
+
 function makeGrid(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
     container.style.setProperty('--grid-cols', cols);
@@ -86,7 +89,11 @@ function generateFoodBox(count) {
 
         // If foodBox with above generated coordinates already exist or are in the snakeBody,
         // generate again
-        if (foodBoxes.indexOf([foodX, foodY]) === -1 || snakeBody.includes([foodX, foodY]) || obstacleWall.includes([foodX, foodY])) {
+        if (
+            foodBoxes.indexOf([foodX, foodY]) === -1 ||
+            snakeBody.includes([foodX, foodY]) ||
+            obstacleWall.includes([foodX, foodY])
+        ) {
             let foodClassName = foodX + '-' + foodY;
 
             let foodBox = document.getElementsByClassName(foodClassName)[0];
@@ -240,6 +247,12 @@ function changeDirection(event) {
 }
 
 function gameOver() {
+    const endTime = Date.now();
+    console.log('endTime', endTime);
+
+    const totalPlayingTime = (endTime - startTime) /1000;
+    console.log("total",totalPlayingTime);
+
     modal.style.display = 'block';
     const scoreElement = document.getElementById('score');
     scoreElement.innerHTML = `${score}.`;
