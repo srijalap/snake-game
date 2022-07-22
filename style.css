@@ -116,3 +116,7 @@ nav a:hover {
     display: none; 
     position: fixed;
 }
+
+.wall {
+    background-color: aqua;
+}

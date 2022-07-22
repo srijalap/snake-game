@@ -248,10 +248,10 @@ function changeDirection(event) {
 
 function gameOver() {
     const endTime = Date.now();
-    console.log('endTime', endTime);
 
-    const totalPlayingTime = (endTime - startTime) /1000;
-    console.log("total",totalPlayingTime);
+    const totalPlayingTime = (endTime - startTime) / 1000;
+    const playedTimeElem = document.getElementById('playedTime');
+    playedTimeElem.innerHTML = totalPlayingTime;
 
     modal.style.display = 'block';
     const scoreElement = document.getElementById('score');
