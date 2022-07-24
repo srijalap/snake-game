@@ -1,6 +1,11 @@
 body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    margin: 10px;
+    background-color: #222;
+    color: #fff;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 500;
 }
 
 #grid-container {
@@ -22,15 +27,6 @@ body {
     width: 25px;
     border: 1px solid #000;
     background-color: gray;
-}
-
-/* Style the tab */
-body {
-    margin: 10;
-    background-color: #222;
-    color: #fff;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: 500;
 }
 
 .container {
@@ -92,19 +88,18 @@ nav a:hover {
 .snake {
     background-color: yellow;
 }
-
-.paragraph {
+.game {
     width: 50%;
     margin: auto;
     font-size: large;
     text-align: start;
 }
 
-.paragraphTwo {
-    text-align: center;
-    margin-top: 60px;
-    margin-bottom: 20px;
-    font-size: larger;
+
+.pause {
+    color: aquamarine;
+    margin: 32px;
+    
 }
 
 .author {
