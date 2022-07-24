@@ -33,6 +33,8 @@ let direction = 'right';
 let score = 0;
 let snakeLength = 5;
 
+let gameState = 'play';
+
 const container = document.getElementById('grid-container');
 const modal = document.getElementById('modal-page');
 console.log('modal is', modal);
@@ -130,117 +132,120 @@ document.addEventListener('keyup', changeDirection);
 let myInterval = setInterval(moveSnake, 300);
 
 function moveSnake() {
-    let snakeHead = snakeBody[snakeBody.length - 1];
+    if (gameState === 'play') {
+        let snakeHead = snakeBody[snakeBody.length - 1];
 
-    // snakeHead[0] -> x co-ordinate of snake head
-    // snakeHead[1] -> y co-ordinate of snake head
-    // foodBoxes[0][0] -> x co-ordinate of first food
-    // foodBoxes[0][1] -> y co-ordinate of first food
-    // foodBoxes[1][0] -> x co-ordinate of second food
-    // foodBoxes[1][1] -> y co-ordinate of second food
-    // foodBoxes[2][0] -> x co-ordinate of third food
-    // foodBoxes[2][1] -> y co-ordinate of third food
+        // snakeHead[0] -> x co-ordinate of snake head
+        // snakeHead[1] -> y co-ordinate of snake head
+        // foodBoxes[0][0] -> x co-ordinate of first food
+        // foodBoxes[0][1] -> y co-ordinate of first food
+        // foodBoxes[1][0] -> x co-ordinate of second food
+        // foodBoxes[1][1] -> y co-ordinate of second food
+        // foodBoxes[2][0] -> x co-ordinate of third food
+        // foodBoxes[2][1] -> y co-ordinate of third food
 
-    // if snake is going to eat food in the next move
-    let eatenFoodBoxIndex; //is undefined here.
-    // when snake is moving up direction snake head (y co-ordinate) is (+1) just before head meet the food.
-    // when snake is moving down direction snake head (y co-ordinate) is (-1) just before head meet the food.
-    // when snake is moving right direction snake head (x co-ordinate) is (-1) just before head meet the food.
-    // when snake is moving left direction snake head (x co-ordinate) is (+1) just before head meet the food.
+        // if snake is going to eat food in the next move
+        let eatenFoodBoxIndex; //is undefined here.
+        // when snake is moving up direction snake head (y co-ordinate) is (+1) just before head meet the food.
+        // when snake is moving down direction snake head (y co-ordinate) is (-1) just before head meet the food.
+        // when snake is moving right direction snake head (x co-ordinate) is (-1) just before head meet the food.
+        // when snake is moving left direction snake head (x co-ordinate) is (+1) just before head meet the food.
 
-    if (direction === 'up' && snakeHead[0] === foodBoxes[0][0] && snakeHead[1] === foodBoxes[0][1] + 1) {
-        eatenFoodBoxIndex = 0;
-    } else if (direction === 'up' && snakeHead[0] === foodBoxes[1][0] && snakeHead[1] === foodBoxes[1][1] + 1) {
-        eatenFoodBoxIndex = 1;
-    } else if (direction === 'up' && snakeHead[0] === foodBoxes[2][0] && snakeHead[1] === foodBoxes[2][1] + 1) {
-        eatenFoodBoxIndex = 2;
-    } else if (direction === 'down' && snakeHead[0] === foodBoxes[0][0] && snakeHead[1] === foodBoxes[0][1] - 1) {
-        eatenFoodBoxIndex = 0;
-    } else if (direction === 'down' && snakeHead[0] === foodBoxes[1][0] && snakeHead[1] === foodBoxes[1][1] - 1) {
-        eatenFoodBoxIndex = 1;
-    } else if (direction === 'down' && snakeHead[0] === foodBoxes[2][0] && snakeHead[1] === foodBoxes[2][1] - 1) {
-        eatenFoodBoxIndex = 2;
-    } else if (direction === 'right' && snakeHead[0] === foodBoxes[0][0] - 1 && snakeHead[1] === foodBoxes[0][1]) {
-        eatenFoodBoxIndex = 0;
-    } else if (direction === 'right' && snakeHead[0] === foodBoxes[1][0] - 1 && snakeHead[1] === foodBoxes[1][1]) {
-        eatenFoodBoxIndex = 1;
-    } else if (direction === 'right' && snakeHead[0] === foodBoxes[2][0] - 1 && snakeHead[1] === foodBoxes[2][1]) {
-        eatenFoodBoxIndex = 2;
-    } else if (direction === 'left' && snakeHead[0] === foodBoxes[0][0] + 1 && snakeHead[1] === foodBoxes[0][1]) {
-        eatenFoodBoxIndex = 0;
-    } else if (direction === 'left' && snakeHead[0] === foodBoxes[1][0] + 1 && snakeHead[1] === foodBoxes[1][1]) {
-        eatenFoodBoxIndex = 1;
-    } else if (direction === 'left' && snakeHead[0] === foodBoxes[2][0] + 1 && snakeHead[1] === foodBoxes[2][1]) {
-        eatenFoodBoxIndex = 2;
-    }
-
-    if (eatenFoodBoxIndex >= 0) {
-        score = score + 10;
-        snakeLength = snakeLength + 5;
-        console.log('score is', score);
-        const eatenFoodBox = foodBoxes[eatenFoodBoxIndex];
-        snakeBody.push([eatenFoodBox[0], eatenFoodBox[1]]);
-
-        // Snake head is now changed
-        snakeHead = snakeBody[snakeBody.length - 1];
-
-        // Remove the eaten food and place next food
-        placeFood(eatenFoodBoxIndex);
-
-        // Add snake class to the eaten food box because snake has eaten the food and increased its length
-        const eatenFoodBoxElem = document.getElementsByClassName(eatenFoodBox[0] + '-' + eatenFoodBox[1])[0];
-        eatenFoodBoxElem.classList.add('snake');
-    } else {
-        if (direction === 'right') {
-            snakeBody.push([snakeHead[0] + 1, snakeHead[1]]);
-        } else if (direction === 'left') {
-            snakeBody.push([snakeHead[0] - 1, snakeHead[1]]);
-        } else if (direction === 'up') {
-            snakeBody.push([snakeHead[0], snakeHead[1] - 1]);
-        } else if (direction === 'down') {
-            snakeBody.push([snakeHead[0], snakeHead[1] + 1]);
+        if (direction === 'up' && snakeHead[0] === foodBoxes[0][0] && snakeHead[1] === foodBoxes[0][1] + 1) {
+            eatenFoodBoxIndex = 0;
+        } else if (direction === 'up' && snakeHead[0] === foodBoxes[1][0] && snakeHead[1] === foodBoxes[1][1] + 1) {
+            eatenFoodBoxIndex = 1;
+        } else if (direction === 'up' && snakeHead[0] === foodBoxes[2][0] && snakeHead[1] === foodBoxes[2][1] + 1) {
+            eatenFoodBoxIndex = 2;
+        } else if (direction === 'down' && snakeHead[0] === foodBoxes[0][0] && snakeHead[1] === foodBoxes[0][1] - 1) {
+            eatenFoodBoxIndex = 0;
+        } else if (direction === 'down' && snakeHead[0] === foodBoxes[1][0] && snakeHead[1] === foodBoxes[1][1] - 1) {
+            eatenFoodBoxIndex = 1;
+        } else if (direction === 'down' && snakeHead[0] === foodBoxes[2][0] && snakeHead[1] === foodBoxes[2][1] - 1) {
+            eatenFoodBoxIndex = 2;
+        } else if (direction === 'right' && snakeHead[0] === foodBoxes[0][0] - 1 && snakeHead[1] === foodBoxes[0][1]) {
+            eatenFoodBoxIndex = 0;
+        } else if (direction === 'right' && snakeHead[0] === foodBoxes[1][0] - 1 && snakeHead[1] === foodBoxes[1][1]) {
+            eatenFoodBoxIndex = 1;
+        } else if (direction === 'right' && snakeHead[0] === foodBoxes[2][0] - 1 && snakeHead[1] === foodBoxes[2][1]) {
+            eatenFoodBoxIndex = 2;
+        } else if (direction === 'left' && snakeHead[0] === foodBoxes[0][0] + 1 && snakeHead[1] === foodBoxes[0][1]) {
+            eatenFoodBoxIndex = 0;
+        } else if (direction === 'left' && snakeHead[0] === foodBoxes[1][0] + 1 && snakeHead[1] === foodBoxes[1][1]) {
+            eatenFoodBoxIndex = 1;
+        } else if (direction === 'left' && snakeHead[0] === foodBoxes[2][0] + 1 && snakeHead[1] === foodBoxes[2][1]) {
+            eatenFoodBoxIndex = 2;
         }
 
-        // Snake head is changed again
-        snakeHead = snakeBody[snakeBody.length - 1];
+        if (eatenFoodBoxIndex >= 0) {
+            score = score + 10;
+            snakeLength = snakeLength + 5;
+            console.log('score is', score);
+            const eatenFoodBox = foodBoxes[eatenFoodBoxIndex];
+            snakeBody.push([eatenFoodBox[0], eatenFoodBox[1]]);
 
-        // Add class snake to the newly pushed snake co-ordinate
-        if (direction) {
-            let addedBodyBox = document.getElementsByClassName(snakeHead[0] + '-' + snakeHead[1])[0];
+            // Snake head is now changed
+            snakeHead = snakeBody[snakeBody.length - 1];
 
-            if (addedBodyBox) {
-                addedBodyBox.classList.add('snake');
+            // Remove the eaten food and place next food
+            placeFood(eatenFoodBoxIndex);
 
-                // Remove the co-ordinate of tail of snake from snakeBody
-                // Remove class snake from the removed tail
+            // Add snake class to the eaten food box because snake has eaten the food and increased its length
+            const eatenFoodBoxElem = document.getElementsByClassName(eatenFoodBox[0] + '-' + eatenFoodBox[1])[0];
+            eatenFoodBoxElem.classList.add('snake');
+        } else {
+            if (direction === 'right') {
+                snakeBody.push([snakeHead[0] + 1, snakeHead[1]]);
+            } else if (direction === 'left') {
+                snakeBody.push([snakeHead[0] - 1, snakeHead[1]]);
+            } else if (direction === 'up') {
+                snakeBody.push([snakeHead[0], snakeHead[1] - 1]);
+            } else if (direction === 'down') {
+                snakeBody.push([snakeHead[0], snakeHead[1] + 1]);
+            }
 
-                if (snakeBody.length > snakeLength) {
-                    let removedBody = snakeBody.shift();
-                    let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
-                    removedBodyBox.classList.remove('snake');
+            // Snake head is changed again
+            snakeHead = snakeBody[snakeBody.length - 1];
+
+            // Add class snake to the newly pushed snake co-ordinate
+            if (direction) {
+                let addedBodyBox = document.getElementsByClassName(snakeHead[0] + '-' + snakeHead[1])[0];
+
+                if (addedBodyBox) {
+                    addedBodyBox.classList.add('snake');
+
+                    // Remove the co-ordinate of tail of snake from snakeBody
+                    // Remove class snake from the removed tail
+
+                    if (snakeBody.length > snakeLength) {
+                        let removedBody = snakeBody.shift();
+                        let removedBodyBox = document.getElementsByClassName(removedBody[0] + '-' + removedBody[1])[0];
+                        removedBodyBox.classList.remove('snake');
+                    }
+                } else {
+                    // Alert Game over and stop executing the moveSnake function
+                    gameOver();
                 }
-            } else {
-                // Alert Game over and stop executing the moveSnake function
-                gameOver();
             }
         }
-    }
 
-    // Game over if snake head collides with snake body
-    const snakeBodyWithoutHead = snakeBody.slice(0, -1);
-    // includes does not check if array exists in array of array
-    // so stringified to check if a string exists in array of string
-    if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
-        gameOver();
-    }
+        // Game over if snake head collides with snake body
+        const snakeBodyWithoutHead = snakeBody.slice(0, -1);
+        // includes does not check if array exists in array of array
+        // so stringified to check if a string exists in array of string
+        if (JSON.stringify(snakeBodyWithoutHead).includes(JSON.stringify(snakeHead))) {
+            gameOver();
+        }
 
-    // Game over if snake head collides with the obstacle wall
-    if (JSON.stringify(obstacleWall).includes(JSON.stringify(snakeHead))) {
-        gameOver();
+        // Game over if snake head collides with the obstacle wall
+        if (JSON.stringify(obstacleWall).includes(JSON.stringify(snakeHead))) {
+            gameOver();
+        }
     }
 }
 
 function changeDirection(event) {
+    console.log("event is",event);
     if (event.code === 'ArrowRight' && (direction === 'up' || direction === 'down')) {
         direction = 'right';
         rightTurns++;
@@ -253,7 +258,15 @@ function changeDirection(event) {
     } else if (event.code === 'ArrowDown' && (direction === 'right' || direction === 'left')) {
         direction = 'down';
         downTurns++;
+    } else if (event.code ==="Space"){
+        if(gameState === "pause"){
+            gameState = "play";
+        } else {
+            gameState = "pause";
+        }
     }
+
+    
 }
 
 function gameOver() {
