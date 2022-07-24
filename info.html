@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        
         <header>
             <div class="container">
                 <img src="./download.png" alt="logo" class="logo" />
@@ -20,30 +19,41 @@
                 </nav>
             </div>
         </header>
-        <h1>How to play snake game?</h1>
-        <p class="paragraph">
-            When you load the page, you will see a snake, length of five square at top of left corner, with  randomly placed three food boxes in the board. At the begining of the movement, Snake will move toward the right side of board.
-            Once you start playing game you can move snake to all four direction by pressing arrow keys which should correspond to the respective arrow keys. (i.e the left arrow should move snake to leftwards, 
-            uparrow to upwards,and so on.). Snake movement is restricted with timer event. In every 300 milliseconds timer tells snake to move.
-            While moving the snake in the grid, if the one targeted food and snake head meet then snake eat the food and the food
-            becomes snake head and length of snake increases by five square grids. After eating each food, new food appears randomly in free grid space.
-             
-            Each eaten food is worth 10 points and each points will be added after eating food. While moving the snake, if head of snake collides within its body or at the wall of the board in any directions then the game will be over.
-            The game over condition will be notifying with alert message and the current scores will display in the screen in the form of bar chart. The overall play times and every moves of snake will be reported. The game can easily pause in the middle of play and can continues
-            later. The games can restart again using userInterface, snake and score book keeping will initialized again in the same way as the very starting of the game. 
-            
-        </p>
-         
-        <P class="paragraphTwo">
-            I used HTML,JavaScript,CSS to develop this game. I used 20 x 20 grid to make the board. It was quite hard to fulfill all requirements of this task but I tried my best. It took me almost 4 hours per day. I complete this task in 30 days.  
-         
-        </P>
 
+        <h1>How to play snake game?</h1>
+        <div class="game">
+            <p class="paragraph">
+                When you load the page, you will see a snake, length of five square at top of left corner, with randomly
+                placed three food boxes in the board. At the begining of the movement, Snake will move toward the right
+                side of board. Once you start playing game you can move snake to all four direction by pressing arrow
+                keys which should correspond to the respective arrow keys. (i.e the left arrow should move snake to
+                leftwards, uparrow to upwards,and so on.). Snake movement is restricted with timer event. In every 300
+                milliseconds timer tells snake to move. While moving the snake in the grid, if the one targeted food and
+                snake head meet then snake eat the food and the food becomes snake head and length of snake increases by
+                five square grids. After eating each food, new food appears randomly in free grid space. Each eaten food
+                is worth 10 points and each points will be added after eating food. While moving the snake, if head of
+                snake collides within its body or at the wall of the board in any directions then the game will be over.
+                The game over condition will be notifying with alert message and the current scores will display in the
+                screen in the form of bar chart. The overall play times and every moves of snake will be reported. The
+                games can restart again using userInterface, snake and score book keeping will initialized again in the
+                same way as the very starting of the game.
+            </p>
+
+            <p class="paragraphTwo">
+                I used HTML,JavaScript,CSS to develop this game. I used 20 x 20 grid to make the board. It was quite
+                hard to fulfill all requirements of this task but I tried my best. It took me almost 4 hours per day. I
+                complete this task in 30 days.
+            </p>
+        </div>
+        <div class="pause">
+            <h2>Can we pause the game?</h2>
+
+            <p>Yes, the game can be easily paused and played by using space key in the middle of game.</p>
+        </div>
         <div class="author">
-        <p>Prepared by Srijana Poudel
+            <p>Prepared by Srijana Poudel</p>
             <h2>Course assignment</h2>
             <h3>Basic of web development</h3>
         </div>
-        </p>
     </body>
 </html>
