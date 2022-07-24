@@ -2,6 +2,12 @@
 const rows = 20;
 const columns = 20;
 
+// Initial number of turns taken by snake
+let rightTurns = 0;
+let leftTurns = 0;
+let upTurns = 0;
+let downTurns = 0;
+
 // Array to hold the body of snake
 const snakeBody = [];
 
@@ -237,12 +243,16 @@ function moveSnake() {
 function changeDirection(event) {
     if (event.code === 'ArrowRight' && (direction === 'up' || direction === 'down')) {
         direction = 'right';
+        rightTurns++;
     } else if (event.code === 'ArrowLeft' && (direction === 'up' || direction === 'down')) {
         direction = 'left';
+        leftTurns++;
     } else if (event.code === 'ArrowUp' && (direction === 'right' || direction === 'left')) {
         direction = 'up';
+        upTurns++;
     } else if (event.code === 'ArrowDown' && (direction === 'right' || direction === 'left')) {
         direction = 'down';
+        downTurns++;
     }
 }
 
@@ -258,6 +268,34 @@ function gameOver() {
     scoreElement.innerHTML = `${score}.`;
 
     clearInterval(myInterval);
+
+    // Add bar chart
+    const label = ['Right Turns', 'Left Turns', 'Up Turns', 'Down Turns'];
+
+    const data = {
+        labels: label,
+        datasets: [
+            {
+                label: 'Snake moves',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [rightTurns, leftTurns, upTurns, downTurns],
+            },
+        ],
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false,
+                },
+            },
+        },
+    };
+    const barChart = new Chart(document.getElementById('barChart'), config);
 }
 
 const okBtn = document.getElementById('okBtn');
