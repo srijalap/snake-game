@@ -24,19 +24,20 @@
         <div class="game">
             <p class="paragraph">
                 When you load the page, you will see a snake, length of five square at top of left corner, with randomly
-                placed three food boxes in the board. At the begining of the movement, Snake will move toward the right
+                placed three food boxes in the board. Some obstacles are also placed in the middle of the grid. At the beginning of the movement, Snake will move toward the right
                 side of board. Once you start playing game you can move snake to all four direction by pressing arrow
-                keys which should correspond to the respective arrow keys. (i.e the left arrow should move snake to
+                keys which should correspond to the respective direction of arrow keys. (i.e the left arrow should move snake to
                 leftwards, uparrow to upwards,and so on.). Snake movement is restricted with timer event. In every 300
                 milliseconds timer tells snake to move. While moving the snake in the grid, if the one targeted food and
                 snake head meet then snake eat the food and the food becomes snake head and length of snake increases by
                 five square grids. After eating each food, new food appears randomly in free grid space. Each eaten food
                 is worth 10 points and each points will be added after eating food. While moving the snake, if head of
-                snake collides within its body or at the wall of the board in any directions then the game will be over.
-                The game over condition will be notifying with alert message and the current scores will display in the
-                screen in the form of bar chart. The overall play times and every moves of snake will be reported. The
-                games can restart again using userInterface, snake and score book keeping will initialized again in the
-                same way as the very starting of the game.
+                snake collides within its body or at the wall of the board or within the obstacles in any directions then the game will be over.
+                The game over condition will be notified and the current scores will be displayed in the
+                modal. Every moves of snake will shown in the barChart. The game can restart again using userInterface, snake and score book keeping will initialized again in the
+                same way as the very starting of the game. The game can be easily paused and played by using space key in the middle of game.
+
+
             </p>
 
             <p class="paragraphTwo">
@@ -46,10 +47,10 @@
             </p>
         </div>
         <div class="pause">
-            <h2>Can we pause the game?</h2>
+        <h2>Can we pause the game?</h2>
 
-            <p>Yes, the game can be easily paused and played by using space key in the middle of game.</p>
-        </div>
+        <p>Yes, the game can be easily paused and played by using space key in the middle of game.</p>
+    </div>
         <div class="author">
             <p>Prepared by Srijana Poudel</p>
             <h2>Course assignment</h2>
